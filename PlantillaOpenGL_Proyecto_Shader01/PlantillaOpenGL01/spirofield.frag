@@ -1,8 +1,11 @@
 uniform float _R;
+uniform float _calctype;
 uniform float _hoff;
 uniform float _freq;
-uniform float _calctype;
 uniform float _f;
+
+uniform float _rv;
+uniform float _b; 
 
 vec4 HSVtoRGB( float h, float s, float v ){
    int i;
@@ -64,10 +67,12 @@ vec4 HSVtoRGB( float h, float s, float v ){
 float LCM(float R, float rv){
 	float i  = 0;
 	float cm = 1.0;
+
 	if(mod(R,rv) == 0){
 		cm = 1;
 	} else {
 		i = 1;
+
 		while(mod(R*i,rv) != 0){
 			i = i + 1;
 		}
@@ -76,34 +81,40 @@ float LCM(float R, float rv){
 	return cm;
 }
 
+
 float calcspiro(float R, float rv, float b, float a){
 	float rho;
 	rho = (sqrt((R-rv)*(R-rv) + b*b + 2*(R-rv)*b*cos((1+R/rv)*a)));
 	return rho;
 }
 
+
 vec4 spirofield (float R,float rv, float b, float hoff, float freq, 
-float calctype, float f) {
+                 float calctype, float f) {
 	
 	float i,theta,rho,nrev,a,rsp,ss,tt;
 	vec4 Ci;
 
 	ss = gl_TexCoord[0].s - 0.5;
-	tt = gl_TexCoord[0].t -0.5;
+	tt = gl_TexCoord[0].t - 0.5;
 	theta = atan (tt,ss);
 	theta += 3.1415;
-	rho = 2*sqrt(ss*ss+tt*tt);
+	rho = 2*sqrt(ss*ss + tt*tt);
 	
-	if((rho>((R-rv+b)/R)) ||   (rho<((R-rv-b)/R))) {
+	if((rho>((R-rv+b)/R)) || (rho<((R-rv-b)/R))) {
 		Ci = vec4(0.25,0.25,0.25,1);
 		return Ci;
+
 	} else {
 		float deltad;
-		vec4 Ch,Cg;
+		vec4  Ch,Cg;
+
 		nrev = LCM(R,rv);
+
 		if(0 == calctype) {
 			float maxdist;
 			maxdist = 2;
+
 			for(i = 0; i<nrev;i+=1) {
 				a = theta + i*2*3.14159265359;
 				rsp = calcspiro(R,rv,b,a)/R;
@@ -116,6 +127,7 @@ float calctype, float f) {
 			maxdist = mod((maxdist + hoff),1.0);
 			Ch = HSVtoRGB(maxdist,1,1);
 			Cg = vec4(maxdist,maxdist,maxdist,1);
+
 		} else if(1  == calctype) {		
 			float mindist;
 			mindist = 2;
@@ -128,15 +140,16 @@ float calctype, float f) {
 				if(deltad<mindist) {
 					mindist = deltad;
 				}
-				
 			}
 
 			mindist *= (nrev*freq);
 			mindist = mod((mindist+hoff),1.0);
 			Ch = HSVtoRGB(mindist,1,1);
 			Cg = vec4(mindist,mindist,mindist,1);
+
 		} else{
 			float avdist = 0;
+
 			for (i =0; i<nrev; i+=1) {
 				a= theta + i*2*3.14159265359;
 				rsp = calcspiro(R,rv,b,a)/R;
@@ -153,7 +166,6 @@ float calctype, float f) {
 }
 
 void main(void) {
-	float rv = 5.0;
-	float b  = 5.0; 
-	gl_FragColor = spirofield(_R,rv,b,_hoff,_freq,_calctype,_f);
+
+	gl_FragColor = spirofield(_R,_rv,_b,_hoff,_freq,_calctype,_f);
 }

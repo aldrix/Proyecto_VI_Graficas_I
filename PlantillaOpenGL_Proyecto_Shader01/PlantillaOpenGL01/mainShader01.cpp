@@ -30,7 +30,7 @@ cwc::glShader *shader01;
 cwc::glShader *shader02;
 
 //Variables para Spirograph Curves 
-float   calctype,R;
+float calctype,R,b,rv;
 float freq,hoff,f;
 
 //Variables para Mandelbrot Fractal
@@ -93,33 +93,6 @@ void changeViewport(int w, int h) {
 }
 
 
-void init(){
-
-   shader01 = SM.loadfromFile("mandel.vert","mandel.frag"); // load (and compile, link) from file
-  		  if (shader01==0) 
-			  std::cout << "Error Loading, compiling or linking shader\n";
-
-   shader02 = SM.loadfromFile("spirofield.vert","spirofield.frag"); // load (and compile, link) from file
-  		  if (shader02==0) 
-			  std::cout << "Error Loading, compiling or linking shader\n";
-
-	//Inicializamos los valores para Spirograph Curves.
-	R = 10;
-	hoff = 0;
-	freq = 1;
-	calctype = 0;
-	f = 1;
-
-	//Inicializamos los valores para Mandelbrot Fractal.
-	xc = 0.5f;
-	yc = 0.5;
-	huefreq = 1.0;
-	sz = 4;
-	escape = 256;
-	maxiter = 20;
-}
-
-
 void cargar_shader(int idx) {
 	// Plano Derecho Mandel
 	if (idx == 0){	
@@ -137,11 +110,13 @@ void cargar_shader(int idx) {
 	if (idx == 1){		
 		   if (shader02) shader02->begin();
 		   
-			shader02->setUniform1i("_R",R);
+			shader02->setUniform1f("_R",R);
 			shader02->setUniform1f("_hoff",hoff);
 			shader02->setUniform1f("_freq",freq);
-			shader02->setUniform1i("_calctype",calctype);
+			shader02->setUniform1f("_calctype",calctype);
 			shader02->setUniform1f("_f",f);
+			shader02->setUniform1f("_b",b);
+			shader02->setUniform1f("_rv",rv);
 	}
 }
 
@@ -163,8 +138,8 @@ void showValues(){
 	system("CLS");
 	printf("\n SpiroField Parametros:");
 	printf("\n-----------------------------------------------------");
-	printf("\n _R: %d \n _hoff: %f \n _freq: %f",R,hoff,freq);
-	printf("\n _calctype: %d \n _f: %f",calctype,f);
+	printf("\n _R: %f \n _b: %f \n _hoff: %f \n _freq: %f",R,b,hoff,freq);
+	printf("\n _calctype: %f \n _f: %f",calctype,f);
 	printf("\n-----------------------------------------------------\n\n");
 
 	printf("\n Mandel Parametros:");
@@ -176,103 +151,123 @@ void showValues(){
 
 
 void Keyboard(unsigned char key, int x, int y) {
+	float v = 0;
+	switch (key) {
+		//----------------- Parametros para Spirograph Shader ------------------------
+		case 'q':
+		case 'Q':
+			calctype = 0;
+			break;
+		case 'a':
+		case 'A':
+			calctype = 1;
+			break;
+		case 'z':
+		case 'Z':
+			calctype = 2;
+			break;
+		case 'w':
+		case 'W':
+			R += 1;
+			break;
+		case 'e':
+		case 'E':
+			v = R - 1;
+			if (v > 0) 
+				R = v;
+			break;
+		case 's':
+		case 'S':
+			freq += 0.05;
+			break;
+		case 'd':
+		case 'D':
+			v = freq - 0.05;
+			if (v > 0)
+				freq = v;
+			break;
+		case 'x':
+		case 'X':
+			hoff += 0.1;
+			break;
+		case 'c':
+		case 'C':
+			v = hoff - 0.1;
+			if (v > 0)
+				hoff = v;
+			break;
+		case 'r':
+		case 'R':
+			f += 0.05;
+			break;
+		case 't':
+		case 'T':
+			v = f - 0.05;
+			if (v > 0)
+				f = v;
+			break;
 
-  switch (key) {
-	//----------------- Parametros para Spirograph Shader ------------------------
-	case 'q':
-	case 'Q':
-		calctype = 0;
-		break;
-	case 'a':
-	case 'A':
-		calctype = 1;
-		break;
-	case 'z':
-	case 'Z':
-		calctype = 2;
-		break;
-	case 'w':
-	case 'W':
-		R += 1;
-		break;
-	case 'e':
-	case 'E':
-		R -= 1;
-		break;
-	case 's':
-	case 'S':
-		freq += 0.05;
-		break;
-	case 'd':
-	case 'D':
-		freq -= 0.05;
-		break;
-	case 'x':
-	case 'X':
-		hoff += 0.1;
-		break;
-	case 'c':
-	case 'C':
-		hoff -= 0.1;
-		break;
-	case 'r':
-	case 'R':
-		f += 0.05;
-		break;
-	case 't':
-	case 'T':
-		f -= 0.05;
-		break;
-
-	//----------------- Parametros para Mandelbrot Fractal -----------------------
-	case 'y': 
-	case 'Y':
-		xc += 0.05;
-		break;
-	case 'u':
-	case 'U':
-		xc -= 0.05;
-		break;
-	case 'h':
-	case 'H':
-		yc += 0.05;
-		break;
-	case 'j':
-	case 'J':
-		yc -= 0.05;
-		break;
-	case 'n':
-	case 'N':
-		sz += 0.001;
-		break;
-	case 'm':
-	case 'M':
-		sz -= 0.001;
-		break;
-	case 'i':
-	case 'I':
-		huefreq += 0.05;
-		break;
-	case 'o':
-	case 'O':
-		huefreq -= 0.05;
-		break;
-	case 'f':
-	case 'F':
-		escape += 12;
-		break;
-	case 'g':
-	case 'G':
-		escape -= 12;
-		break;
-	case 'v':
-	case 'V':
-		maxiter += 12;
-		break;
-	case 'b':
-	case 'B':
-		maxiter -= 12;
-		break;
+		//----------------- Parametros para Mandelbrot Fractal -----------------------
+		case 'y': 
+		case 'Y':
+			xc += 0.05;
+			break;
+		case 'u':
+		case 'U':
+			v = xc - 0.05;
+			if (v > 0)
+				xc = v;
+			break;
+		case 'h':
+		case 'H':
+			yc += 0.05;
+			break;
+		case 'j':
+		case 'J':
+			v = yc - 0.05;
+			if (v > 0)
+				yc = v;
+			break;
+		case 'n':
+		case 'N':
+			sz += 0.001;
+			break;
+		case 'm':
+		case 'M':
+			v = sz - 0.001;
+			if (v > 0)
+				sz = v;
+			break;
+		case 'i':
+		case 'I':
+			huefreq += 0.05;
+			break;
+		case 'o':
+		case 'O':
+			v = huefreq - 0.05;
+			if (v > 0)
+				huefreq = v;
+			break;
+		case 'f':
+		case 'F':
+			escape += 12;
+			break;
+		case 'g':
+		case 'G':
+			v = escape - 12;
+			if (v > 0)
+				escape = v;
+			break;
+		case 'v':
+		case 'V':
+			maxiter += 12;
+			break;
+		case 'b':
+		case 'B':
+			v = maxiter - 12;
+			if (v > 0)
+				maxiter = v;
+			break;
   }
 
   showValues();
@@ -442,6 +437,39 @@ int loadasset (const char* path){
 }
 
 
+void init(){
+
+   shader01 = SM.loadfromFile("mandel.vert","mandel.frag"); // load (and compile, link) from file
+  		  if (shader01==0) 
+			  std::cout << "Error Loading, compiling or linking shader\n";
+
+   shader02 = SM.loadfromFile("spirofield.vert","spirofield.frag"); // load (and compile, link) from file
+  		  if (shader02==0) 
+			  std::cout << "Error Loading, compiling or linking shader\n";
+
+	//Inicializamos los valores para Spirograph Curves.
+	R = 10;
+	b = 5;
+	hoff = 0;
+	freq = 1;
+	calctype = 0;
+	f = 1;
+
+	
+	rv = 5;
+
+	//Inicializamos los valores para Mandelbrot Fractal.
+	xc = 0.5f;
+	yc = 0.5;
+	huefreq = 1.0;
+	sz = 4;
+	escape = 256;
+	maxiter = 20;
+
+	showValues();
+}
+
+
 int main (int argc, char** argv) {
 
 	glutInit(&argc, argv);
@@ -473,7 +501,8 @@ int main (int argc, char** argv) {
 	
 	loadasset( "planos.obj");
 
-	init ();
+	init();
+
 
 	glutReshapeFunc(changeViewport);
 	glutDisplayFunc(render);
