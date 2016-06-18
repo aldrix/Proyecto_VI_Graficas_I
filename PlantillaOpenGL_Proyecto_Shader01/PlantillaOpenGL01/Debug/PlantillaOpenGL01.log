@@ -1,4 +1,4 @@
-﻿Build started 6/18/2016 10:16:35 AM.
+﻿Build started 6/18/2016 12:14:34 PM.
      1>Project "C:\Users\Aldrix\Desktop\Proyecto_VI_Graficas_I\PlantillaOpenGL_Proyecto_Shader01\PlantillaOpenGL01\PlantillaOpenGL01.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\dev\Assimp\include /IC:\dev\opengl\freeglut\include /I"C:\dev\opengl\glew-1.7.0\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt mainShader01.cpp
@@ -20,20 +20,20 @@
      1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(67): warning C4244: 'argumento' : conversión de 'int' a 'GLfloat'; posible pérdida de datos
      1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(67): warning C4305: 'argumento' : truncamiento de 'double' a 'GLfloat'
      1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(78): warning C4101: 'aspectratio' : variable local sin referencia
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(157): warning C4305: '+=' : truncamiento de 'double' a 'float'
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(158): warning C4305: '+=' : truncamiento de 'double' a 'float'
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(162): warning C4305: '-=' : truncamiento de 'double' a 'float'
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(163): warning C4305: '-=' : truncamiento de 'double' a 'float'
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(167): warning C4305: '+=' : truncamiento de 'double' a 'float'
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(171): warning C4305: '-=' : truncamiento de 'double' a 'float'
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(175): warning C4305: '+=' : truncamiento de 'double' a 'float'
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(179): warning C4305: '-=' : truncamiento de 'double' a 'float'
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(266): warning C4101: 'zLocal' : variable local sin referencia
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(266): warning C4101: 'xExtent' : variable local sin referencia
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(267): warning C4101: 'loopX' : variable local sin referencia
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(266): warning C4101: 'xLocal' : variable local sin referencia
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(267): warning C4101: 'loopZ' : variable local sin referencia
-     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(266): warning C4101: 'zExtent' : variable local sin referencia
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(159): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(160): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(164): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(165): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(169): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(173): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(177): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(181): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(269): warning C4101: 'zLocal' : variable local sin referencia
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(269): warning C4101: 'xExtent' : variable local sin referencia
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(270): warning C4101: 'loopX' : variable local sin referencia
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(269): warning C4101: 'xLocal' : variable local sin referencia
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(270): warning C4101: 'loopZ' : variable local sin referencia
+     1>c:\users\aldrix\desktop\proyecto_vi_graficas_i\plantillaopengl_proyecto_shader01\plantillaopengl01\mainshader01.cpp(269): warning C4101: 'zExtent' : variable local sin referencia
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Aldrix\Desktop\Proyecto_VI_Graficas_I\PlantillaOpenGL_Proyecto_Shader01\Debug\PlantillaOpenGL01.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\dev\Assimp\lib\x86 /LIBPATH:C:\dev\opengl\freeglut\lib /LIBPATH:"C:\dev\opengl\glew-1.7.0\lib" glew32.lib freeglut.lib assimp.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Aldrix\Desktop\Proyecto_VI_Graficas_I\PlantillaOpenGL_Proyecto_Shader01\Debug\PlantillaOpenGL01.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Aldrix\Desktop\Proyecto_VI_Graficas_I\PlantillaOpenGL_Proyecto_Shader01\Debug\PlantillaOpenGL01.lib" /MACHINE:X86 Debug\glm.obj
          Debug\glsl.obj
@@ -43,4 +43,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.51
+Time Elapsed 00:00:01.56

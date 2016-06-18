@@ -30,8 +30,8 @@ cwc::glShader *shader01;
 cwc::glShader *shader02;
 
 // Variables para Mandelbrot Fractal
-float xc, yc, sz;
-float huefreq, escape, maxiter;
+float xc, yc, sz, huefreq;
+int   escape, maxiter;
 
 
 void ejesCoordenada() {
@@ -98,9 +98,9 @@ void init(){
   		  if (shader02==0) 
 			  std::cout << "Error Loading, compiling or linking shader\n";
 
-	xc = 0.5;
+	xc = 0.5f;
 	yc = 0.5;
-	huefreq = 1;
+	huefreq = 1.0;
 	sz = 4;
 	escape = 256;
 	maxiter = 20;
@@ -112,13 +112,16 @@ void cargar_shader(int idx) {
 	if (idx == 0){	
 			if (shader01) shader01->begin();
 
-			//Colocar aqui los parametros Uniform
+			shader01->setUniform1f("_xc",xc);
+			shader01->setUniform1f("_yc",yc);
+			shader01->setUniform1f("_sz",sz);
+			shader01->setUniform1i("_escape",escape);
+			shader01->setUniform1i("_maxiter",maxiter);	
 	}
 
 	// Plano Izquierdo SpiroField
 	if (idx == 1){		
 		   if (shader02) shader02->begin();
-
 		   //Colocar aqui los parametros Uniform
 	}
 }
@@ -142,7 +145,7 @@ void showValues(){
 	printf("\n Mandel Parametros:");
 	printf("\n-----------------------------------------------------");
 	printf("\n _xc: %f \n _yc: %f \n sz: %f \n _huefreq: %f",xc,yc,sz,huefreq);
-	printf("\n _escape: %f \n _maxiter: %f",escape,maxiter);
+	printf("\n _escape: %d \n _maxiter: %d",escape,maxiter);
 	printf("\n-----------------------------------------------------");
 }
 
@@ -150,7 +153,6 @@ void showValues(){
 void Keyboard(unsigned char key, int x, int y) {
 
   switch (key) {
-	
 	//----------------- Parametros para Mandelbrot Fractal -----------------------
 	case 'y': 
 	case 'Y':
@@ -197,11 +199,12 @@ void Keyboard(unsigned char key, int x, int y) {
   }
 
   showValues();
+  scene_list = 0;
   glutPostRedisplay();
 }
 
-void recursive_render (const aiScene *sc, const aiNode* nd)
-{
+
+void recursive_render (const aiScene *sc, const aiNode* nd) {
 	unsigned int i;
 	unsigned int n = 0, t;
 	aiMatrix4x4 m = nd->mTransformation;
@@ -255,9 +258,9 @@ void recursive_render (const aiScene *sc, const aiNode* nd)
 		recursive_render(sc, nd->mChildren[n]);
 		fin_shader(n);
 	}
-
 	glPopMatrix();
 }
+
 
 void render(){
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -272,10 +275,7 @@ void render(){
 	glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable( GL_LINE_SMOOTH );	
 
-			
 	glPushMatrix();
-
-
 
 	// Codigo para el mesh	
 	glEnable(GL_NORMALIZE);
@@ -295,21 +295,18 @@ void render(){
 	
 	glPopMatrix();
 	
-	
-	
-
-	
 	glDisable(GL_BLEND);
 	glDisable(GL_LINE_SMOOTH);
 	glutSwapBuffers();
 }
 
+
 void animacion(int value) {
 	
 	glutTimerFunc(10,animacion,1);
     glutPostRedisplay();
-	
 }
+
 
 void get_bounding_box_for_node (const aiNode* nd, 	aiVector3D* min, 	aiVector3D* max, 	aiMatrix4x4* trafo){
 	aiMatrix4x4 prev;
@@ -341,6 +338,7 @@ void get_bounding_box_for_node (const aiNode* nd, 	aiVector3D* min, 	aiVector3D*
 	*trafo = prev;
 }
 
+
 void get_bounding_box (aiVector3D* min, aiVector3D* max){
 	aiMatrix4x4 trafo;
 	aiIdentityMatrix4(&trafo);
@@ -349,6 +347,7 @@ void get_bounding_box (aiVector3D* min, aiVector3D* max){
 	max->x = max->y = max->z = -1e10f;
 	get_bounding_box_for_node(scene->mRootNode,min,max,&trafo);
 }
+
 
 int loadasset (const char* path){
 	// we are taking one of the postprocessing presets to avoid
@@ -365,6 +364,7 @@ int loadasset (const char* path){
 	return 1;
 }
 
+
 int main (int argc, char** argv) {
 
 	glutInit(&argc, argv);
@@ -374,7 +374,6 @@ int main (int argc, char** argv) {
 	glutInitWindowSize(960,540);
 
 	glutCreateWindow("Test Opengl");
-
 
 	// Codigo para cargar la geometria usando ASSIMP
 
@@ -395,10 +394,7 @@ int main (int argc, char** argv) {
 	// models from the repository (/models-nonbsd may be missing in 
 	// some distributions so we need a fallback from /models!).
 	
-	
 	loadasset( "planos.obj");
-
-
 
 	init ();
 
@@ -408,5 +404,4 @@ int main (int argc, char** argv) {
 	
 	glutMainLoop();
 	return 0;
-
 }

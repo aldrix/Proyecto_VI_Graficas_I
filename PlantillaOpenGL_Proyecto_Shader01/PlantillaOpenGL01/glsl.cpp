@@ -541,7 +541,7 @@ bool glShader::setUniform4f(GLcharARB* varname, GLfloat v0, GLfloat v1, GLfloat 
 bool glShader::setUniform1i(GLcharARB* varname, GLint v0, GLint index)
 { 
     if (!useGLSL) return false; // GLSL not available
-    if (!_noshader) return true;
+	if (!_noshader) {printf("Aqui estoy \n");return true;}
     
     GLint loc;
     if (varname)
