@@ -30,7 +30,7 @@ cwc::glShader *shader01;
 cwc::glShader *shader02;
 
 //Variables para Spirograph Curves 
-int   calctype,R,b;
+float   calctype,R;
 float freq,hoff,f;
 
 //Variables para Mandelbrot Fractal
@@ -105,7 +105,6 @@ void init(){
 
 	//Inicializamos los valores para Spirograph Curves.
 	R = 10;
-	b = 5;
 	hoff = 0;
 	freq = 1;
 	calctype = 0;
@@ -138,12 +137,11 @@ void cargar_shader(int idx) {
 	if (idx == 1){		
 		   if (shader02) shader02->begin();
 		   
-			shader02->setUniform1i("",R);
-			shader02->setUniform1i("",b);
-			shader02->setUniform1f("",hoff);
-			shader02->setUniform1f("",freq);
-			shader02->setUniform1i("",calctype);
-			shader02->setUniform1f("",f);
+			shader02->setUniform1i("_R",R);
+			shader02->setUniform1f("_hoff",hoff);
+			shader02->setUniform1f("_freq",freq);
+			shader02->setUniform1i("_calctype",calctype);
+			shader02->setUniform1f("_f",f);
 	}
 }
 
@@ -165,7 +163,7 @@ void showValues(){
 	system("CLS");
 	printf("\n SpiroField Parametros:");
 	printf("\n-----------------------------------------------------");
-	printf("\n _R: %d \n _b: %d \n _hoff: %f \n _freq: %f",R,b,hoff,freq);
+	printf("\n _R: %d \n _hoff: %f \n _freq: %f",R,hoff,freq);
 	printf("\n _calctype: %d \n _f: %f",calctype,f);
 	printf("\n-----------------------------------------------------\n\n");
 
