@@ -29,6 +29,9 @@ cwc::glShaderManager SM;
 cwc::glShader *shader01;
 cwc::glShader *shader02;
 
+// Variables para Mandelbrot Fractal
+float xc, yc, sz;
+float huefreq, escape, maxiter;
 
 
 void ejesCoordenada() {
@@ -62,37 +65,31 @@ void ejesCoordenada() {
 
 					glVertex2f(0.2,i);
 					glVertex2f(-0.2,i);
-
 				}
 			}
 		}
-		
 	glEnd();
-
 	glEnable(GL_LIGHTING);
-
 	glLineWidth(1.0);
 }
 
+
 void changeViewport(int w, int h) {
-	
 	float aspectratio;
 
 	if (h==0)
 		h=1;
 
-	
    glViewport (0, 0, (GLsizei) w, (GLsizei) h); 
    glMatrixMode (GL_PROJECTION);
    glLoadIdentity ();
    gluPerspective(30, (GLfloat) w/(GLfloat) h, 1.0, 300.0);
    glMatrixMode (GL_MODELVIEW);
-
 }
 
+
 void init(){
-	
-   
+
    shader01 = SM.loadfromFile("mandel.vert","mandel.frag"); // load (and compile, link) from file
   		  if (shader01==0) 
 			  std::cout << "Error Loading, compiling or linking shader\n";
@@ -101,17 +98,21 @@ void init(){
   		  if (shader02==0) 
 			  std::cout << "Error Loading, compiling or linking shader\n";
 
+	xc = 0.5;
+	yc = 0.5;
+	huefreq = 1;
+	sz = 4;
+	escape = 256;
+	maxiter = 20;
 }
 
+
 void cargar_shader(int idx) {
-
-
 	// Plano Derecho Mandel
 	if (idx == 0){	
 			if (shader01) shader01->begin();
 
 			//Colocar aqui los parametros Uniform
-
 	}
 
 	// Plano Izquierdo SpiroField
@@ -120,13 +121,10 @@ void cargar_shader(int idx) {
 
 		   //Colocar aqui los parametros Uniform
 	}
-
-
 }
 
+
 void fin_shader(int idx) {
-
-
 	// Material Piso
 	if (idx == 0){	
 			if (shader01) shader01->end();
@@ -136,21 +134,69 @@ void fin_shader(int idx) {
 	if (idx == 1){		
 		   if (shader02) shader02->end();
 	}
-
-
 }
 
-void Keyboard(unsigned char key, int x, int y)
-{
+
+void showValues(){
+	system("CLS");
+	printf("\n Mandel Parametros:");
+	printf("\n-----------------------------------------------------");
+	printf("\n _xc: %f \n _yc: %f \n sz: %f \n _huefreq: %f",xc,yc,sz,huefreq);
+	printf("\n _escape: %f \n _maxiter: %f",escape,maxiter);
+	printf("\n-----------------------------------------------------");
+}
 
 
-  switch (key)
-  {
+void Keyboard(unsigned char key, int x, int y) {
+
+  switch (key) {
 	
-	default:
+	//----------------- Parametros para Mandelbrot Fractal -----------------------
+	case 'y': 
+	case 'Y':
+		xc += 0.05;
+		yc += 0.05;
+		break;
+	case 'u':
+	case 'U':
+		xc -= 0.05;
+		yc -= 0.05;
+		break;
+	case 'n':
+	case 'N':
+		sz += 0.001;
+		break;
+	case 'm':
+	case 'M':
+		sz -= 0.001;
+		break;
+	case 'i':
+	case 'I':
+		huefreq += 0.05;
+		break;
+	case 'o':
+	case 'O':
+		huefreq -= 0.05;
+		break;
+	case 'f':
+	case 'F':
+		escape += 12;
+		break;
+	case 'g':
+	case 'G':
+		escape -= 12;
+		break;
+	case 'v':
+	case 'V':
+		maxiter += 12;
+		break;
+	case 'b':
+	case 'B':
+		maxiter -= 12;
 		break;
   }
 
+  showValues();
   glutPostRedisplay();
 }
 
