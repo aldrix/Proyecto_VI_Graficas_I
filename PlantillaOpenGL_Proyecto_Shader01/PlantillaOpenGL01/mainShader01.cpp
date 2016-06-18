@@ -29,9 +29,14 @@ cwc::glShaderManager SM;
 cwc::glShader *shader01;
 cwc::glShader *shader02;
 
-// Variables para Mandelbrot Fractal
+//Variables para Spirograph Curves 
+int   calctype,R,b;
+float freq,hoff,f;
+
+//Variables para Mandelbrot Fractal
 float xc, yc, sz, huefreq;
 int   escape, maxiter;
+
 
 
 void ejesCoordenada() {
@@ -98,6 +103,15 @@ void init(){
   		  if (shader02==0) 
 			  std::cout << "Error Loading, compiling or linking shader\n";
 
+	//Inicializamos los valores para Spirograph Curves.
+	R = 10;
+	b = 5;
+	hoff = 0;
+	freq = 1;
+	calctype = 0;
+	f = 1;
+
+	//Inicializamos los valores para Mandelbrot Fractal.
 	xc = 0.5f;
 	yc = 0.5;
 	huefreq = 1.0;
@@ -123,7 +137,13 @@ void cargar_shader(int idx) {
 	// Plano Izquierdo SpiroField
 	if (idx == 1){		
 		   if (shader02) shader02->begin();
-		   //Colocar aqui los parametros Uniform
+		   
+			shader02->setUniform1i("",R);
+			shader02->setUniform1i("",b);
+			shader02->setUniform1f("",hoff);
+			shader02->setUniform1f("",freq);
+			shader02->setUniform1i("",calctype);
+			shader02->setUniform1f("",f);
 	}
 }
 
@@ -143,26 +163,84 @@ void fin_shader(int idx) {
 
 void showValues(){
 	system("CLS");
+	printf("\n SpiroField Parametros:");
+	printf("\n-----------------------------------------------------");
+	printf("\n _R: %d \n _b: %d \n _hoff: %f \n _freq: %f",R,b,hoff,freq);
+	printf("\n _calctype: %d \n _f: %f",calctype,f);
+	printf("\n-----------------------------------------------------\n\n");
+
 	printf("\n Mandel Parametros:");
 	printf("\n-----------------------------------------------------");
-	printf("\n _xc: %f \n _yc: %f \n sz: %f \n _huefreq: %f",xc,yc,sz,huefreq);
+	printf("\n _xc: %f \n _yc: %f \n _huefreq: %f \n _sz: %f",xc,yc,huefreq,sz);
 	printf("\n _escape: %d \n _maxiter: %d",escape,maxiter);
-	printf("\n-----------------------------------------------------");
+	printf("\n-----------------------------------------------------\n");
 }
 
 
 void Keyboard(unsigned char key, int x, int y) {
 
   switch (key) {
+	//----------------- Parametros para Spirograph Shader ------------------------
+	case 'q':
+	case 'Q':
+		calctype = 0;
+		break;
+	case 'a':
+	case 'A':
+		calctype = 1;
+		break;
+	case 'z':
+	case 'Z':
+		calctype = 2;
+		break;
+	case 'w':
+	case 'W':
+		R += 1;
+		break;
+	case 'e':
+	case 'E':
+		R -= 1;
+		break;
+	case 's':
+	case 'S':
+		freq += 0.05;
+		break;
+	case 'd':
+	case 'D':
+		freq -= 0.05;
+		break;
+	case 'x':
+	case 'X':
+		hoff += 0.1;
+		break;
+	case 'c':
+	case 'C':
+		hoff -= 0.1;
+		break;
+	case 'r':
+	case 'R':
+		f += 0.05;
+		break;
+	case 't':
+	case 'T':
+		f -= 0.05;
+		break;
+
 	//----------------- Parametros para Mandelbrot Fractal -----------------------
 	case 'y': 
 	case 'Y':
 		xc += 0.05;
-		yc += 0.05;
 		break;
 	case 'u':
 	case 'U':
 		xc -= 0.05;
+		break;
+	case 'h':
+	case 'H':
+		yc += 0.05;
+		break;
+	case 'j':
+	case 'J':
 		yc -= 0.05;
 		break;
 	case 'n':
