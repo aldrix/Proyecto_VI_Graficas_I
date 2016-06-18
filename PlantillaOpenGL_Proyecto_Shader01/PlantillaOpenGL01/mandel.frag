@@ -1,6 +1,7 @@
 uniform float _xc;
 uniform float _yc;
 uniform float _sz;
+uniform float _huefreq;
 uniform int _escape;
 uniform int _maxiter;
 
@@ -92,8 +93,8 @@ void main(void) {
 
 	//Convierte n a color
 
-	//h = 0.5 * (1 + sin(_huefreq * n / _maxiter));
-	//Cmandel = HSVtoRGB(h,1.0,1.0);
+	h = 0.5 * (1 + sin(_huefreq * n / _maxiter));
+	Cmandel = HSVtoRGB(h,1.0,1.0);
 
-	gl_FragColor = HSVtoRGB(0.5,1.0,1.0);
+	gl_FragColor = Cmandel;
 }

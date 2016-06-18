@@ -115,6 +115,7 @@ void cargar_shader(int idx) {
 			shader01->setUniform1f("_xc",xc);
 			shader01->setUniform1f("_yc",yc);
 			shader01->setUniform1f("_sz",sz);
+			shader01->setUniform1f("_huefreq",huefreq);
 			shader01->setUniform1i("_escape",escape);
 			shader01->setUniform1i("_maxiter",maxiter);	
 	}
