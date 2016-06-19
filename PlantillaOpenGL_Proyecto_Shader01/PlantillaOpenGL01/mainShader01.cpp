@@ -153,6 +153,115 @@ void showValues(){
 void Keyboard(unsigned char key, int x, int y) {
 	float v = 0;
 	switch (key) {
+		case '1':
+			//Inicializamos los valores para Spirograph Curves.
+			R = 6.5;
+			b = 5;
+			hoff = 1.9;
+			freq = 0.75;
+			calctype = 1;
+			f = 1;
+			rv = 5;
+
+			//Inicializamos los valores para Mandelbrot Fractal.
+			xc = 0.5;
+			yc = 0.5;
+			huefreq = 1;
+			sz = 4;
+			escape = 256;
+			maxiter = 20;
+			break;
+		case '2':
+			//Inicializamos los valores para Spirograph Curves.
+			R = 13;
+			b = 5;
+			hoff = 1.05;
+			freq = 0.8;
+			calctype = 1;
+			f = 0.5;
+			rv = 5;
+
+			//Inicializamos los valores para Mandelbrot Fractal.
+			xc = 0.5;
+			yc = 0.5;
+			huefreq = 1;
+			sz = 4;
+			escape = 256;
+			maxiter = 20;
+			break;
+		case '3':
+			//Inicializamos los valores para Spirograph Curves.
+			R = 2;
+			b = 5;
+			hoff = 0;
+			freq = 0.25;
+			calctype = 0;
+			f = 1;
+			rv = 5;
+
+			//Inicializamos los valores para Mandelbrot Fractal.
+			xc = 0.5f;
+			yc = 0.5;
+			huefreq = 1;
+			sz = 4;
+			escape = 256;
+			maxiter = 20;
+			break;
+		case '4':
+			//Inicializamos los valores para Spirograph Curves.
+			R = 11;
+			b = 5;
+			hoff = 0.8;
+			freq = 0.55;
+			calctype = 2;
+			f = 1;
+			rv = 5;
+
+			//Inicializamos los valores para Mandelbrot Fractal.
+			xc = 0.5;
+			yc = 0.5;
+			huefreq = 1;
+			sz = 4;
+			escape = 256;
+			maxiter = 20;
+			break;
+		case '5':
+			//Inicializamos los valores para Spirograph Curves.
+			R = 11;
+			b = 5;
+			hoff = 0.8;
+			freq = 0.55;
+			calctype = 2;
+			f = 1;
+			rv = 5;
+
+			//Inicializamos los valores para Mandelbrot Fractal.
+			xc = 0.39;
+			yc = 0.25;
+			huefreq = 0.36;
+			sz = 0.05;
+			escape = 512;
+			maxiter = 120;
+			break;
+		case '6':
+			//Inicializamos los valores para Spirograph Curves.
+			R = 11;
+			b = 5;
+			hoff = 0.8;
+			freq = 0.55;
+			calctype = 2;
+			f = 1;
+			rv = 5;
+
+			//Inicializamos los valores para Mandelbrot Fractal.
+			xc = 0.39f;
+			yc = 0.27;
+			huefreq = 2.4;
+			sz = 0.01;
+			escape = 512;
+			maxiter = 256;
+			break;
+
 		//----------------- Parametros para Spirograph Shader ------------------------
 		case 'q':
 		case 'Q':
@@ -452,10 +561,9 @@ void init(){
 	b = 5;
 	hoff = 0;
 	freq = 1;
-	calctype = 0;
+	calctype = 1;
 	f = 1;
 
-	
 	rv = 5;
 
 	//Inicializamos los valores para Mandelbrot Fractal.
