@@ -103,7 +103,6 @@ vec4 spirofield (float R,float rv, float b, float hoff, float freq,
 	
 	if((rho>((R-rv+b)/R)) || (rho<((R-rv-b)/R))) {
 		Ci = vec4(0.25,0.25,0.25,1);
-		return Ci;
 
 	} else {
 		float deltad;
@@ -161,8 +160,8 @@ vec4 spirofield (float R,float rv, float b, float hoff, float freq,
 			Cg = vec4(avdist,avdist,avdist,1);	
 		}
 		 Ci = mix(Cg,Ch,f);
-		 return Ci;
 	}
+	return Ci;
 }
 
 void main(void) {
